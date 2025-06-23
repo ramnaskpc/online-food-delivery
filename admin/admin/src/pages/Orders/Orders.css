@@ -1,0 +1,104 @@
+
+
+.order-title {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.order-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  white-space: nowrap;
+}
+
+.order-table th,
+.order-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.order-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: black;
+}
+
+.order-status {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+}
+
+.order-status:hover,
+.order-status:focus {
+  border-color: #999;
+}
+
+.table-body{
+    color:black;
+}
+
+
+@media (max-width: 600px) {
+  .order-container {
+    overflow-x: auto;
+  }
+
+  .order-table {
+    display: block;
+    width: 100%;
+    border: none;
+  }
+
+  .order-table thead {
+    display: none; 
+  }
+
+  .order-table tr {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+    background-color: #fff;
+  }
+
+  .order-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border: none;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+  }
+
+  .order-table td:last-child {
+    border-bottom: none;
+  }
+
+  .order-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #444;
+  }
+
+  .order-status {
+    width: 100%;
+    font-size: 14px;
+    padding: 8px;
+    margin-top: 8px;
+  }
+}

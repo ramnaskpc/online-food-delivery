@@ -1,0 +1,147 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem;
+  font-size: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.navbar h2 {
+  font-size: 30px;
+}
+
+.search-bar {
+  display: flex;
+  flex-grow: 1;
+  max-width: 650px;
+  margin: 0 20px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 2px solid #d2042d;
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-input::placeholder {
+  color: #ccc;
+}
+
+.search-button {
+  background-color: #d2042d;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 0 20px 20px 0;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icons .icon {
+  font-size: 35px;
+  cursor: pointer;
+}
+
+.cart-icon {
+  position: relative;
+  border: none;
+  background: transparent;
+}
+
+.cart-qty {
+  position: absolute;
+  bottom: 20px;
+  right: -5px;
+  background: red;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  padding: 0.2rem 0.4rem;
+}
+
+.profile-group {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  display: none;
+  flex-direction: column;
+  z-index: 999;
+  padding: 10px;
+  border-radius: 6px;
+  top: 40px;
+  right: 0;
+}
+
+.dropdown-item {
+  color: gray;
+  cursor: pointer;
+  margin: 2px 0;
+  padding: 5px 10px;
+}
+
+.dropdown-item:hover {
+  color: black;
+}
+
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin: 0;
+  }
+
+  .search-input {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .search-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .icons {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .cart-qty {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.35rem;
+    bottom: 18px;
+  }
+
+  .navbar h2 {
+    font-size: 22px;
+  }
+
+  .icons .icon {
+    font-size: 28px;
+  }
+
+  .dropdown-menu {
+    right: 0;
+    width: 160px;
+  }
+}

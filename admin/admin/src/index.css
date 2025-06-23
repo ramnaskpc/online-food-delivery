@@ -1,0 +1,27 @@
+
+  .app-container{
+  background-color: #fff;
+  min-height: 100vh;
+}
+.app-divider{
+  margin: 0;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+}
+.app-content{
+     display: flex;
+     width: 100%;
+}
+.page-content{
+  width:70%;
+  margin: 2rem auto;
+  margin-left: max(5vw, 25px);
+  color:#fff;
+  font-size: 1rem;
+    
+}
+.active{
+  background-color: #d2042d;
+  border-color: #ec2e54;
+  border-radius: 20px;
+}
