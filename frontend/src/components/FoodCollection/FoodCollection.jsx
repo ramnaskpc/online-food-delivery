@@ -3,6 +3,8 @@ import {categoryItem} from "../../assets/assets"
 import { useContext } from 'react'
 import { FoodContext } from '../../context/FoodContext'
 import "./FoodCollection.css";
+import { useLocation } from 'react-router-dom';
+
 
 import { backendUrl } from '../../App'; 
 
@@ -11,6 +13,12 @@ const FoodCollection = () => {
     const {products, addToCart,getProductData} = useContext(FoodContext)
 
    const [category, setCategory] = useState("All")
+
+   const location = useLocation();
+const searchParams = new URLSearchParams(location.search);
+const searchQuery = searchParams.get('search')?.toLowerCase() || '';
+   
+
 
 
 
@@ -43,22 +51,28 @@ const FoodCollection = () => {
 <div className="grid_display">
     {
         products.length>0?(
-    products.filter((product)=> category === "All" || category === product.category).map((product)=>(
+   
 
-                <div key={product._id} className='product_card'>
-                    <div className="product_image">
-                        <img src={product.image} alt=''/>
-                    
-                    </div>
-                    <h3>{product.name}</h3>
-                    <p>{product.description}</p>
-                    <div className="price_add">
-                        <p>${product.price}</p>
-                        <button onClick={()=>addToCart(product._id)}>Add To Cart</button>
-                    </div>
 
-                </div>
-            ))
+    products
+  .filter(product =>
+    (category === "All" || category === product.category) &&
+    product.name.toLowerCase().includes(searchQuery)
+  )
+  .map(product => (
+    <div key={product._id} className='product_card'>
+      <div className="product_image">
+        <img src={product.image} alt='' />
+      </div>
+      <h3>{product.name}</h3>
+      <p>{product.description}</p>
+      <div className="price_add">
+        <p>${product.price}</p>
+        <button onClick={() => addToCart(product._id)}>Add To Cart</button>
+      </div>
+    </div>
+  ))
+
         ):(
             <p> no products is available</p>
         )

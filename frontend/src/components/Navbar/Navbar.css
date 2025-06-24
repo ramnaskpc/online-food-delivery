@@ -78,7 +78,7 @@
   position: absolute;
   background: white;
   border: 1px solid #ccc;
-  display: none;
+  display: block;
   flex-direction: column;
   z-index: 999;
   padding: 10px;

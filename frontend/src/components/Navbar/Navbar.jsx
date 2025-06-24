@@ -7,6 +7,7 @@ import { FoodContext } from '../../context/FoodContext';
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
   const { getCartCount, token, setToken } = useContext(FoodContext);
@@ -30,6 +31,12 @@ const Navbar = () => {
     navigate(path);
   };
 
+  const handleSearch = () => {
+  if (searchQuery.trim() !== '') {
+    navigate(`/menu?search=${encodeURIComponent(searchQuery.trim())}`);
+  }
+};
+
   return (
     <div>
       <nav className="navbar">
@@ -38,8 +45,15 @@ const Navbar = () => {
         </div>
 
         <div className="search-bar">
-          <input type="text" className="search-input" placeholder="search for products..." />
-          <button className="search-button">Search</button>
+           <input
+           type="text"
+           className="search-input"
+           placeholder="Search for food..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+         onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+        />
+          <button className="search-button" onClick={handleSearch}>Search</button>
         </div>
 
         <div className="icons">
