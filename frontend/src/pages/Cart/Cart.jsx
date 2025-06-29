@@ -65,12 +65,9 @@ useEffect(() => {
                    }}
              />
 
+         <MdDelete className = "delete-icon" onClick={()=>updateQuantity(item._id, 0)}/>
            
-
-               
-               <MdDelete className = "delete-icon" onClick={()=>updateQuantity(item._id, 0)}/>
-           
-            </div>
+        </div>
           )
 
         })

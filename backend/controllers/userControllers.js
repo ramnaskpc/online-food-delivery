@@ -34,42 +34,47 @@ const loginUser = async (req, res) => {
 
 
 
-const registerUser = async (req, res)=>{
-   
-    try{
-        
-        const {name, email, password} = req.body;
+const registerUser = async (req, res) => {
+  try {
+    const { name, email, password, address = {} } = req.body;
 
-        const exists = await userModel.findOne({email});
-        if(exists){
-            return res.status(400).json({message:"User already exist"})
-        }
-        if(!validator.isEmail(email)){
-            return res.status(400).json({success:false, message:"Invalid email address"})
-        }
-
-        if(password.length <8){
-            return res.status(400).json({success:false, message:"please enter strong password"})
-        }
-
-
-        const salt = await bcrypt.genSalt(10)
-        const hashedPassword = await bcrypt.hash(password, salt)
-
-        const newUser = new userModel({
-            name,email,password:hashedPassword
-        })
-
-        const user = await newUser.save()
-
-        const token = createToken(user._id)
-        res.json({success:true, message:"Account created succsessfully", token})
-
-    }catch(error){
-         console.log(error)
-         res.json({succes:false, message:error.message})
+    const exists = await userModel.findOne({ email });
+    if (exists) {
+      return res.status(400).json({ message: "User already exists" });
     }
-}
+
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ success: false, message: "Invalid email address" });
+    }
+
+    if (password.length < 8) {
+      return res.status(400).json({ success: false, message: "Please enter a strong password" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new userModel({
+      name,
+      email,
+      password: hashedPassword,
+      address: {
+        street: address.street || '',
+        city: address.city || '',
+        state: address.state || '',
+        zip: address.zip || ''
+      }
+    });
+
+    const user = await newUser.save();
+    const token = createToken(user._id);
+    res.json({ success: true, message: "Account created successfully", token });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
 
 const adminLogin = async (req, res) => {
   try {
@@ -97,4 +102,36 @@ const adminLogin = async (req, res) => {
 };
 
 
-export {loginUser, registerUser, adminLogin}
+ const getUserProfile = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user.id).select('-password');
+    if (!user) return res.status(404).json({ message: "User not found" });
+    
+    res.json({ success: true, user }); 
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+const updateUserProfile = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const { name, address } = req.body;
+
+    if (name) user.name = name;
+    if (address) user.address = address;
+
+    await user.save();
+
+    res.json({ success: true, message: "Profile updated" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+export {loginUser, registerUser, adminLogin, getUserProfile, updateUserProfile}

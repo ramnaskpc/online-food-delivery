@@ -1,0 +1,52 @@
+.profile_page {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #fafafa;
+  min-height: 80vh;
+}
+
+.profile_card {
+  background: #fff;
+  max-width: 500px;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.profile_card h1 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #333;
+}
+
+.profile_card p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.profile_actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+.profile_actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.profile_actions button:first-child {
+  background: #27ae60;
+  color: #fff;
+}
+
+.profile_actions button:last-child {
+  background: #e74c3c;
+  color: #fff;
+}

@@ -7,12 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 createRoot(document.getElementById('root')).render(
-     <BrowserRouter>
+<BrowserRouter>
 <FoodContextProvider>
-
-  
-    <App/>
-   
+     <App/>
 </FoodContextProvider>
- </BrowserRouter>
+</BrowserRouter>
 )

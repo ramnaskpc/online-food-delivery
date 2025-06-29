@@ -31,6 +31,12 @@ const Login = () => {
           name,
           email,
           password,
+          address: {
+           street: '',
+           city: '',
+           state: '',
+           zip: ''
+  }
         });
 
         if (response.data.success) {
@@ -88,8 +94,7 @@ const Login = () => {
             value={name}
             className="form-input"
             placeholder="Full Name"
-            required
-          />
+            required/>
         )}
 
         <input
@@ -98,16 +103,14 @@ const Login = () => {
           value={email}
           className="form-input"
           placeholder="Email"
-          required
-        />
+          required />
         <input
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           className="form-input"
           placeholder="Password"
-          required
-        />
+          required/>
 
         <div className="form-footer">
           <p className="fgt-password">Forget Password?</p>

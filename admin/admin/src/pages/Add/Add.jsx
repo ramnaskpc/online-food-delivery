@@ -74,7 +74,7 @@ const Add = ({ token }) => {
           <p className="form-label">Product Category</p>
           <select onChange={(e) => setCategory(e.target.value)} value={category} className='form-select'>
             <option value="All">All</option>
-            <option value="biriyani">Biriyani</option>
+            <option value="Ice cream">Ice cream</option>
             <option value="Pizza">Pizza</option>
             <option value="Rice">Rice</option>
             <option value="Chicken">Chicken</option>

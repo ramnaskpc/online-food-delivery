@@ -101,10 +101,6 @@ const Checkout = () => {
         toast.error(error.message)
     }
       
-      
-    
-      
-        
   }
 
   return (

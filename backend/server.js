@@ -6,8 +6,9 @@ import connectCloudinary from './config/cloudinary.js';
 import userRouter from './routes/userRoutes.js';
 import productRouter from './routes/productRoute.js';
 import adminRouter from "./routes/adminRoute.js"
-import cartRouter from './routes/cartRoute.js';
+import cartRouter from './routes/cartRoutes.js';
 import orderRouter from './routes/orderRoute.js';
+
 
 const app = express();
 const port = process.env.PORT || 8083;

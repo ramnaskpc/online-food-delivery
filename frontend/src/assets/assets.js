@@ -21,7 +21,7 @@ export const categoryItem = [
         category_title:"All"
     },
     {
-        category_title: "Bereyani",
+        category_title: "Ice cream",
     },
     {
         category_title: "Pizza",

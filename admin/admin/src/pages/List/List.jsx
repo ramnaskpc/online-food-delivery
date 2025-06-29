@@ -50,11 +50,7 @@ useEffect(()=>{
   }
 };
 
-
-
-  
-
-  useEffect(() => {
+ useEffect(() => {
     fetchList();
   },[]);
 

@@ -9,6 +9,12 @@ import Order from './pages/Order/Order';
 import { ToastContainer } from 'react-toastify';
 import FoodContextProvider from './context/FoodContext'; 
 import 'react-toastify/dist/ReactToastify.css';
+import FoodCollection from './components/FoodCollection/FoodCollection';
+import Profile from "./pages/Profile/Profile"
+import EditProfile from './pages/EditProfile/EditProfile';
+import Wishlist from './pages/WishList/WishList';
+import ProductDetails from './pages/ProductDetails/Productdetails';
+
 
 export const backendUrl = "http://localhost:8083";
 
@@ -22,9 +28,13 @@ const App = () => {
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/orders' element={<Order />} />
+          <Route path="/menu" element={<FoodCollection />} />
+          <Route path="/product/:id" element={<ProductDetails/>} />
+          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/wishlist" element={<Wishlist />} />
         </Routes>
         <ToastContainer />
-      
     </FoodContextProvider>
   );
 };

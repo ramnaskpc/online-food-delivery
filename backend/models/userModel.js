@@ -17,8 +17,16 @@ const userSchema = new mongoose.Schema({
   cartData: {
     type: Object,
     default: {}
+  },
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    zip: String
   }
 }, { minimize: false });
+
+
 
 const userModel = mongoose.models.user || mongoose.model('user', userSchema);
 

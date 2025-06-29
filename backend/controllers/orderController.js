@@ -8,43 +8,37 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const currency = 'usd'
 const deliveryCharge =12
 
-
-const placeOrder = async(req, res)=>{
+const placeOrder = async (req, res) => {
   try {
-     
-    const {userId, amount, address,street, price}=req.body;
+    const userId = req.user.id; 
+    const { amount, address, street, price } = req.body;
 
     const userData = await userModel.findById(userId);
     if (!userData) {
-     res.json({success:false, message: "User not found" });
+      return res.status(404).json({ success: false, message: "User not found" }); 
     }
 
-const items = await Promise.all(
-  Object.entries(userData.cartData).map(async([itemId, quantity]) => {
-     const product = await productModel.findById(itemId);
-
-  
-   
-    if (!product){
-        throw new Error("Product not found");
-    }
-   
-    return {
-      itemId,
-      name: product.name,
-      image: product.image,
-      price: product.price,
-      street:product.street,
-      quantity,
-    };
-  })
-)
-
-    if (items.length === 0) {
-      return res.json({ success: false, message: "Cart is empty" });
+    if (!userData.cartData || Object.keys(userData.cartData).length === 0) {
+      return res.status(400).json({ success: false, message: "Cart is empty" });
     }
 
-   const orderData = {
+    const items = await Promise.all(
+      Object.entries(userData.cartData).map(async ([itemId, quantity]) => {
+        const product = await productModel.findById(itemId);
+        if (!product) throw new Error("Product not found");
+
+        return {
+          itemId,
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          street: product.street,
+          quantity,
+        };
+      })
+    );
+
+    const orderData = {
       userId,
       items,
       amount,
@@ -52,29 +46,31 @@ const items = await Promise.all(
       street,
       paymentMethod: "COD",
       payment: false,
-      date: Date.now()
-     
+      date: Date.now(),
     };
-
 
     const newOrder = new orderModel(orderData);
     await newOrder.save();
-    await userModel.findByIdAndUpdate(userId, {cartData:{}})
-    res.json({success:true, message: "Order placed"})
- 
-  }catch(error){
-       console.log(error);
-       res.json({ success: false, message: "Order could not be placed" });
-  }
 
-}
-   
     
+    userData.cartData = {};
+    await userData.save();
+
+    return res.json({ success: true, message: "Order placed" });
+
+  } catch (error) {
+    console.error("Place Order Error:", error.message);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 
 const placeOrderStripe = async(req, res)=>{
     try {
-       const {userId, amount, address}= req.body;
+       const {amount, address}= req.body;
        const {origin} = req.headers;
+
+        const userId = req.user.id;
 
        const userData = await userModel.findById(userId)
        if(!userData){
@@ -103,7 +99,7 @@ const placeOrderStripe = async(req, res)=>{
            amount,
            address,
            paymentMethod:"Stripe",
-           payment:false,
+           payment:true,
            date:Date.now()
        }
 
@@ -152,7 +148,7 @@ const allOrder = async(req, res)=>{
 
 const userOrder = async(req, res)=>{
   try {
-    const {userId} = req.body;
+    const userId = req.user.id;
     const orders = await orderModel.find({ userId }).sort({ date: -1 });
     res.json({success:true, orders});
   } catch (error) {

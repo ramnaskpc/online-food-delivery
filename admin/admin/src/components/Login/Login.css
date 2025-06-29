@@ -1,60 +1,88 @@
-.admin-panel-container{
+.admin-panel-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f9f9f9;
+  background: linear-gradient(to right, #dbeafe, #e0f2fe); 
+  padding: 20px;
 }
-.admin-panel-box{
-background-color: #fff;
-box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-border-radius: 8px;
-padding: 24px 32px;
-max-width: 500px;
-width: 100%;
-}
-.login-title{
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 16px;
-    color: #333;
-    text-align: center;
-}
-.form-group{
-     margin-bottom: 16px;
-}
-.form-label{
-   font-size: 0.875rem;
-   font-weight: 600;
-   color: #555;
-   margin-bottom: 8px;
 
+.admin-panel-box {
+  background: #ffffff;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 400px;
+  transition: transform 0.3s ease;
 }
-.form-input{
-  width: 95%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 0.8rem;
+
+.admin-panel-box:hover {
+  transform: translateY(-5px);
+}
+
+.login-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1e3a8a; 
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1e293b; 
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-input {
+  width: 100%; 
+  max-width: 100%; 
+  box-sizing: border-box; 
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f8fafc;
+  transition: 0.2s ease-in-out;
+}
+
+
+.form-input:focus {
+  border-color: #3b82f6; 
   outline: none;
-  transition: border-color 0.2s;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
-.form-input:focus{
-  border-color: #333;
-}
-.form-button{
-    display: block;
-    width:100%;
-    padding: 10px 12px;
-    font-size: 0.8rem;
-    color: #fff;
-    background-color: #000;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 
+.form-button {
+  width: 100%;
+  padding: 12px;
+  background: #3b82f6; 
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
 }
-.form-button:hover{
-     background-color: #333;
+
+.form-button:hover {
+  background-color: #2563eb; 
+}
+
+@media (max-width: 600px) {
+  .admin-panel-box {
+    padding: 30px 20px;
+  }
+
+  .login-title {
+    font-size: 1.6rem;
+  }
 }

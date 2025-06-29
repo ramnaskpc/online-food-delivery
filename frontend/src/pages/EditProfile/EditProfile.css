@@ -1,0 +1,50 @@
+.edit-profile-page {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.edit-profile-form {
+  width: 100%;
+  max-width: 500px;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.edit-profile-form h2 {
+  margin-bottom: 1rem;
+}
+
+.edit-profile-form label {
+  display: block;
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.edit-profile-form input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.edit-profile-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.edit-profile-actions button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff5722;
+  color: white;
+  cursor: pointer;
+}
+
+.edit-profile-actions button:last-child {
+  background-color: #aaa;
+}

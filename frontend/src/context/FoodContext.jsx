@@ -7,18 +7,32 @@ import { useNavigate } from 'react-router-dom';
 
 export const FoodContext = createContext();
 
+
+
 const FoodContextProvider = ({ children }) => {
   const navigate = useNavigate(); 
   const delivery_fee = 12;
-  const currency = '$';
+  const currency = '₹';
   const [products, setProducts] = useState(product);
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState(localStorage.getItem("token") || "");
+  const [wishlist, setWishlist] = useState([]);
 
   const getCartCount = () => {
   return Object.values(cartItems).reduce((total, quantity) => total + quantity, 0);
 };
 
+const toggleWishlist = (productId) => {
+  setWishlist((prevWishlist) => {
+    if (prevWishlist.includes(productId)) {
+      return prevWishlist.filter((id) => id !== productId); 
+    } else {
+      return [...prevWishlist, productId]; 
+    }
+  });
+};
+
+const isWishlisted = (productId) => wishlist.includes(productId);
   
 
 
@@ -123,7 +137,10 @@ const FoodContextProvider = ({ children }) => {
         token,
         setToken,
         getUsercart,
-        getCartCount
+        getCartCount,
+        wishlist,
+        toggleWishlist,
+        isWishlisted
       }}
     >
       {children}
