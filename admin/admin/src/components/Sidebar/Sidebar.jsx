@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { IoLogOut } from "react-icons/io5";
-import { MdAddCircleOutline, MdFormatListBulleted, MdAddShoppingCart } from "react-icons/md";
+import { MdAddCircleOutline, MdFormatListBulleted, MdAddShoppingCart, MdPeopleAlt } from "react-icons/md";
 import "./Sidebar.css";
 
 const Sidebar = ({ setToken }) => {
@@ -23,12 +23,17 @@ const Sidebar = ({ setToken }) => {
 
         <NavLink className='sidebar-link' to="/list">
           <MdFormatListBulleted className="sidebar-icon" />
-          <p className="sidebar-text">List Product</p>
+          <p className="sidebar-text">Product List</p>
         </NavLink>
 
         <NavLink className='sidebar-link' to="/orders">
           <MdAddShoppingCart className='sidebar-icon' />
           <p className='sidebar-text'>Orders</p>
+        </NavLink>
+
+        <NavLink className='sidebar-link' to="/manage-users">
+          <MdPeopleAlt className='sidebar-icon' />
+          <p className="sidebar-text">Manage Users</p>
         </NavLink>
 
         <button className="sidebar-link" onClick={handleLogout}>

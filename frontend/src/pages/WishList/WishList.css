@@ -3,6 +3,25 @@
   text-align: center;
 }
 
+.wishlist-page h2 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.wishlist-page p {
+  font-size: 1rem;
+  color: #777;
+}
+
+.browse-link {
+  margin-top: 1rem;
+  display: inline-block;
+  color: #ff5722;
+  font-weight: bold;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+
 .wishlist-grid {
   display: grid;
   gap: 1.5rem;
@@ -14,8 +33,11 @@
   background: #fff;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .wishlist-card:hover {
@@ -24,31 +46,36 @@
 
 .wishlist-card img {
   width: 100%;
-  height: 180px;
+  height: auto;
   object-fit: cover;
   border-radius: 8px;
 }
 
 .wishlist-card h3 {
   margin: 0.8rem 0 0.4rem;
+  font-size: 1.2rem;
 }
 
 .wishlist-card p {
   font-size: 0.9rem;
   color: #555;
+  margin-bottom: 0.5rem;
+  min-height: 50px;
 }
 
 .wishlist-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: auto;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .wishlist-actions .price {
   font-weight: bold;
   color: #ff5722;
+  font-size: 1rem;
 }
 
 .wishlist-actions button {
@@ -59,16 +86,53 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
+  flex: 1 1 auto;
 }
 
 .wishlist-actions button:last-child {
   background-color: #999;
 }
 
-.browse-link {
-  margin-top: 1rem;
-  display: inline-block;
-  color: #ff5722;
-  font-weight: bold;
-  text-decoration: underline;
+
+@media (max-width: 768px) {
+  .wishlist-page {
+    padding: 1rem;
+  }
+
+  .wishlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .wishlist-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .wishlist-actions button {
+    width: 100%;
+    font-size: 0.9rem;
+  }
+
+  .wishlist-card h3 {
+    font-size: 1rem;
+  }
+
+  .wishlist-page h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wishlist-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wishlist-card img {
+    height: auto;
+   
+  }
+
+  .wishlist-actions .price {
+    font-size: 0.95rem;
+  }
 }

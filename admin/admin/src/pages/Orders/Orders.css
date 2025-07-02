@@ -1,10 +1,11 @@
 .order-title {
   width: 100%;
   display: block;
-  overflow-x: auto;
   padding: 1rem 0;
   font-size: 1.5rem;
   font-weight: bold;
+  color: #111;
+  text-align: center;
 }
 
 .order-container {
@@ -31,6 +32,10 @@
   color: black;
 }
 
+.table-body {
+  color: black;
+}
+
 .order-status {
   padding: 6px 10px;
   border-radius: 5px;
@@ -44,43 +49,45 @@
   border-color: #999;
 }
 
-.table-body{
-    color:black;
-}
-
 
 @media (max-width: 600px) {
-  .order-container {
-    overflow-x: auto;
+  .order-title{
+    margin-left: 30px;
+    margin-top: 80px;
   }
-
   .order-table {
     display: block;
     width: 100%;
     border: none;
+    
   }
 
   .order-table thead {
-    display: none; 
+    display: none;
+  }
+
+  .order-table tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   .order-table tr {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1.5rem;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 12px;
-    background-color: #fff;
   }
 
   .order-table td {
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 6px 0;
     border: none;
-    border-bottom: 1px solid #eee;
     font-size: 14px;
+    border-bottom: 1px solid #eee;
   }
 
   .order-table td:last-child {
@@ -91,12 +98,14 @@
     content: attr(data-label);
     font-weight: bold;
     color: #444;
+    margin-right: 10px;
+    flex: 1;
   }
 
   .order-status {
     width: 100%;
     font-size: 14px;
     padding: 8px;
-    margin-top: 8px;
+    margin-top: 6px;
   }
 }

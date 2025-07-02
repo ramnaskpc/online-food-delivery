@@ -21,7 +21,6 @@ const Orders = ({ token }) => {
         toast.error(response.data.message || "Failed to fetch orders.");
       }
     } catch (error) {
-      console.log(error);
       toast.error(error.message || "Error fetching orders.");
     }
   };
@@ -37,7 +36,6 @@ const Orders = ({ token }) => {
         await fetchAllOrders();
       }
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
     }
   };
@@ -69,34 +67,30 @@ const Orders = ({ token }) => {
           </thead>
           <tbody className="table-body">
             {orders.map((order, index) => (
-             
               <tr key={index}>
-                <td>{order.address.firstName}</td>
-                <td>{order.address.email}</td>
-                <td>{order.address.phone}</td>
-                <td>
+                <td data-label="Customer">{order.address.firstName}</td>
+                <td data-label="Email">{order.address.email}</td>
+                <td data-label="Telephone">{order.address.phone}</td>
+                <td data-label="Shipping Address">
                   {order.address.street}, {order.address.city}, {order.address.state},{" "}
                   {order.address.country}, {order.address.zipcode}
                 </td>
-
-                <td>
+                <td data-label="Product Name">
                   {order.items.map((item, i) => (
                     <p key={i}>{item.name}</p>
                   ))}
                 </td>
-
-                <td>
+                <td data-label="Quantity">
                   {order.items.map((item, i) => (
                     <p key={i}>{item.quantity}</p>
                   ))}
                 </td>
-
-                <td>{order.items.length}</td>
-                <td>{currency}{order.amount}</td>
-                <td>{order.paymentMethod}</td>
-                <td>{order.payment ? "Done" : "Pending"}</td>
-                <td>{new Date(order.date).toLocaleString()}</td>
-                <td>
+                <td data-label="Items">{order.items.length}</td>
+                <td data-label="Price">{currency}{order.amount}</td>
+                <td data-label="Payment Method">{order.paymentMethod}</td>
+                <td data-label="Payment Status">{order.payment ? "Done" : "Pending"}</td>
+                <td data-label="Date">{new Date(order.date).toLocaleString()}</td>
+                <td data-label="Delivery Status">
                   <select
                     onChange={(event) => statusHandler(event, order._id)}
                     value={order.status}

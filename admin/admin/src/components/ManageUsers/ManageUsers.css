@@ -1,0 +1,92 @@
+.user-management {
+  padding: 2rem;
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+}
+
+.user-table th,
+.user-table td {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  text-align: left;
+  color: black;
+}
+
+.user-table button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  background-color: #1976d2;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.user-table button:hover {
+  opacity: 0.9;
+}
+
+.user-table input {
+  padding: 0.4rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+
+@media (max-width: 600px) {
+  .user-table {
+    display: block;
+    width: 100%;
+    border: none;
+  }
+
+  .user-table thead {
+    display: none;
+  }
+
+  .user-table tr {
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+    margin-bottom: 1.2rem;
+    padding: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-left: 70px;
+  }
+
+  .user-table td {
+    display: flex;
+    justify-content: space-between;
+    border: none;
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
+    font-size: 0.9rem;
+  }
+
+  .user-table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #444;
+    margin-right: 1rem;
+    flex: 1;
+  }
+
+  .user-table td:last-child {
+    border-bottom: none;
+  }
+
+  .user-table button {
+    margin: 4px 6px 4px 0;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.6rem;
+  }
+}

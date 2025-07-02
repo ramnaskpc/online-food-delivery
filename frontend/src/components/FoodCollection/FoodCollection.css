@@ -217,6 +217,7 @@
   .product_image img {
     height: auto;
     max-height: 200px;
+    width:auto
   }
 
   .product_card h3 {

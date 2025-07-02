@@ -7,6 +7,7 @@ import Login from './components/Login/Login';
 import List from './pages/List/List';
 import Orders from './pages/Orders/Orders';
 import Add from './pages/Add/Add'; 
+import ManageUsers from './components/ManageUsers/ManageUsers';
 
 export const backendUrl = "http://localhost:8083";
 export const currency = "$"
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/add" element={<Add token={token} />} />
         <Route path="/list" element={<List token={token} />} />
         <Route path="/orders" element={<Orders token={token} />} />
+        <Route path="/manage-users" element={<ManageUsers token={token} />} />
       </Routes>
     </div>
   </div>
