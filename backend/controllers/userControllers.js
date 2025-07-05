@@ -134,4 +134,50 @@ const updateUserProfile = async (req, res) => {
 
 
 
-export {loginUser, registerUser, adminLogin, getUserProfile, updateUserProfile}
+ const getSavedAddresses = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await userModel.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User not found' });
+    }
+
+    res.json({
+      success: true,
+      addresses: user.addresses || [],
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Server error' });
+  }
+};
+
+
+  const addAddress = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    const newAddress = req.body;
+
+    if (!newAddress.firstName || !newAddress.street) {
+      return res.status(400).json({ success: false, message: "Address is incomplete" });
+    }
+
+    user.addresses.push(newAddress);
+    await user.save();
+
+    res.json({ success: true, message: "Address added successfully", addresses: user.addresses });
+  } catch (error) {
+    console.error("Add Address Error:", error.message);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+
+
+export {loginUser, registerUser, adminLogin, getUserProfile, updateUserProfile, getSavedAddresses ,addAddress}

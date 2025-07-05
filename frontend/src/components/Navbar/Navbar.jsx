@@ -4,6 +4,7 @@ import { BiCart } from 'react-icons/bi';
 import './Navbar.css';
 import { FoodContext } from '../../context/FoodContext';
 import { useLocation } from 'react-router-dom';
+import { FiLogOut } from 'react-icons/fi'; 
 
 
 const Navbar = () => {
@@ -54,7 +55,7 @@ const hideSearchBar = location.pathname === '/login';
 ) : (
   <>
     <Link to="/orders"><button className="nav-btn">My Orders</button></Link>
-    <button className="nav-btn" onClick={logout}>Logout</button>
+   
     <Link to="/profile"><button className="nav-btn">Profile</button></Link> 
    <Link to="/wishlist"><button className="nav-btn">Wishlist</button></Link>
 
@@ -65,6 +66,9 @@ const hideSearchBar = location.pathname === '/login';
           <button className="cart-icon" onClick={() => navigate('/cart')}>
             <BiCart className="icon" />
             <span className="cart-qty">{getCartCount()}</span>
+          </button>
+          <button className="icon-btn" onClick={logout} title="Logout">
+          <FiLogOut size={20} />
           </button>
         </div>
       </nav>

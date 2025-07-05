@@ -168,4 +168,44 @@ const updateStatus = async(req, res)=>{
   }
 };
 
-export { placeOrder, placeOrderStripe, allOrder, userOrder, updateStatus };
+
+ const listOrdersPaginated = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = 5;
+    const skip = (page - 1) * limit;
+
+    const orders = await orderModel.find().sort({ date: -1 }).skip(skip).limit(limit);
+    const totalOrders = await orderModel.countDocuments();
+
+    res.json({
+      success: true,
+      orders,
+      currentPage: page,
+      totalPages: Math.ceil(totalOrders / limit),
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to fetch paginated orders", error });
+  }
+};
+
+
+
+const deleteOrder = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await orderModel.findByIdAndDelete(orderId);
+
+    if (!order) {
+      return res.status(404).json({ success: false, message: "Order not found" });
+    }
+
+    res.json({ success: true, message: "Order deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to delete order", error: error.message });
+  }
+};
+
+
+export { placeOrder, placeOrderStripe, allOrder, userOrder, updateStatus, listOrdersPaginated , deleteOrder};

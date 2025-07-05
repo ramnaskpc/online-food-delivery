@@ -80,6 +80,21 @@
   border-radius: 50%;
 }
 
+.icon-btn {
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 1.2rem;
+  transition: color 0.3s;
+}
+
+.icon-btn:hover {
+  color: #e74c3c; 
+}
+
+
 
 @media (max-width: 768px) {
   .navbar {

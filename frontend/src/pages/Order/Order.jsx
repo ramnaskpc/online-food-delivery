@@ -10,14 +10,21 @@ const Order = () => {
   const [orderData, setOrderData] = useState([]);
   const navigate = useNavigate();
 
-  const loadOrderData = async()=> {
+  const loadOrderData = async () => {
     try {
-      if (!token) return;
+      if (!token) {
+        console.warn("No token found, user must login");
+        return;
+      }
 
       const response = await axios.post(
         `${backendUrl}/api/order/userorders`,
         {},
-        { headers: { token } }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
       );
 
       if (response.data.success) {
@@ -34,11 +41,43 @@ const Order = () => {
         });
 
         setOrderData(allOrdersItem.reverse());
+      } else {
+        console.error("Failed to load orders:", response.data.message);
       }
     } catch (error) {
       console.error("Error loading orders:", error);
     }
   };
+
+
+ const downloadInvoice = (item) => {
+  const line = "----------------------------------------";
+
+  const invoiceContent = `
+            INVOICE / ORDER BILL
+${line}
+Product Name : ${item.name}
+Price        : ${currency}${item.price}
+Quantity     : ${item.quantity}
+Total        : ${currency}${(item.price * item.quantity).toFixed(2)}
+Payment Mode : ${item.paymentMethod}
+Order Status : ${item.status}
+Order Date   : ${new Date(item.date).toLocaleString()}
+${line}
+Thank you for your order!
+Visit again at Our Zesty Bite App 
+${line}
+`;
+
+  const blob = new Blob([invoiceContent], { type: 'text/plain' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `Invoice_${item.name.replace(/\s+/g, '_')}.txt`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
+
 
   useEffect(() => {
     loadOrderData();
@@ -56,7 +95,7 @@ const Order = () => {
           orderData.map((item, index) => (
             <div className="order-item-container" key={index}>
               <div className="order-item-details">
-                <img src={item.image} alt="" className='order-item-image' />
+                <img src={item.image} alt={item.name} className='order-item-image' />
                 <div>
                   <p className="order-item-name">{item.name}</p>
                   <div className="order-item-info">
@@ -71,12 +110,13 @@ const Order = () => {
                   </p>
                 </div>
               </div>
-               <div className="order-item-status-container">
-                  <div className="order-item-status">
-                   <div className="status-indicator"></div>
-                   <p>{item.status}</p>
-                  </div>
-                 <button onClick={loadOrderData} className='track-order-btn'>Track Order</button>
+              <div className="order-item-status-container">
+                <div className="order-item-status">
+                  <div className="status-indicator"></div>
+                  <p>{item.status}</p>
+                </div>
+             <button onClick={() => downloadInvoice(item)} className='track-order-btn'>Download Invoice</button>
+
               </div>
             </div>
           ))

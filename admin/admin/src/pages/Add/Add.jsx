@@ -25,25 +25,23 @@ const Add = ({ token }) => {
       if (image) formData.append("image", image);
 
       const response = await axios.post(`${backendUrl}/api/product/add`, formData, {
-        headers: {token},
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      console.log(response)
-
       if (response.data.success) {
-        
         toast.success("Product added successfully!");
         setName("");
         setDescription("");
         setPrice("");
         setImage(null);
-      
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Failed to add product");
     }
   };
 

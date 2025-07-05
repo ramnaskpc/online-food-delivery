@@ -3,7 +3,7 @@ import axios from 'axios';
 import { backendUrl } from '../../App';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import './EditProfile.css'
+import './EditProfile.css';
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -21,8 +21,16 @@ const EditProfile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
+        if (!token) {
+          toast.error("Please log in");
+          navigate('/login');
+          return;
+        }
+
         const { data } = await axios.get(`${backendUrl}/api/user/profile`, {
-          headers: { token }
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         });
 
         if (data.success) {
@@ -32,11 +40,12 @@ const EditProfile = () => {
         }
       } catch (err) {
         toast.error('Error fetching profile');
+        console.error(err);
       }
     };
 
     fetchProfile();
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,8 +68,15 @@ const EditProfile = () => {
 
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        toast.error("Login required");
+        return;
+      }
+
       const { data } = await axios.put(`${backendUrl}/api/user/profile`, profile, {
-        headers: { token }
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
 
       if (data.success) {
@@ -71,6 +87,7 @@ const EditProfile = () => {
       }
     } catch (err) {
       toast.error('Error updating profile');
+      console.error(err);
     }
   };
 
@@ -85,28 +102,28 @@ const EditProfile = () => {
           name="name"
           value={profile.name}
           onChange={handleChange}
-          required/>
+          required />
 
         <label>Street:</label>
         <input
           type="text"
           name="street"
           value={profile.address.street}
-          onChange={handleChange}/>
+          onChange={handleChange} />
 
         <label>City:</label>
         <input
           type="text"
           name="city"
           value={profile.address.city}
-          onChange={handleChange}/>
+          onChange={handleChange} />
 
         <label>State:</label>
         <input
           type="text"
           name="state"
           value={profile.address.state}
-          onChange={handleChange}/>
+          onChange={handleChange} />
 
         <label>Zip Code:</label>
         <input

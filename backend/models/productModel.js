@@ -21,10 +21,19 @@ const productSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now },
+    reviews: [
+    {
+      user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+      name: String,
+      rating: Number,
+      comment: String,
+      date: { type: Date, default: Date.now }
+    }
+  ]
 
 })
 
-const productModel =mongoose.models.product || mongoose.model('product',productSchema)
+const productModel =mongoose.models.product || mongoose.model('Product',productSchema)
 
 export default productModel

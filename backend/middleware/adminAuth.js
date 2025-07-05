@@ -5,16 +5,18 @@ dotenv.config();
 
 const adminAuth = async (req, res, next) => {
   try {
-    const { token } = req.headers;
+    
+    const authHeader = req.headers.authorization;
 
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Unauthorized User: Token missing" });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ success: false, message: "Unauthorized: No token provided" });
     }
 
+    const token = authHeader.split(" ")[1]; 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!decoded || decoded.email !== process.env.ADMIN_EMAIL) {
-      return res.status(403).json({ success: false, message: "User not authorized" });
+      return res.status(403).json({ success: false, message: "Forbidden: Not an admin" });
     }
 
     req.admin = decoded;

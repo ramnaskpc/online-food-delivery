@@ -12,11 +12,14 @@ const ManageUsers = ({ token }) => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(`${backendUrl}/api/admin/users`, {
-        headers: { token }
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       setUsers(response.data.users);
     } catch (error) {
       toast.error("Failed to fetch users");
+      console.error(error.response?.data || error.message);
     }
   };
 
@@ -24,12 +27,15 @@ const ManageUsers = ({ token }) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
       await axios.delete(`${backendUrl}/api/admin/users/${userId}`, {
-        headers: { token }
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       });
       toast.success("User deleted successfully");
       fetchUsers();
     } catch (error) {
       toast.error("Failed to delete user");
+      console.error(error.response?.data || error.message);
     }
   };
 
@@ -40,21 +46,28 @@ const ManageUsers = ({ token }) => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`${backendUrl}/api/admin/users/${editUser._id}`, {
-        name: updatedName
-      }, {
-        headers: { token }
-      });
+      await axios.put(
+        `${backendUrl}/api/admin/users/${editUser._id}`,
+        { name: updatedName },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
       toast.success("User updated");
       setEditUser(null);
       fetchUsers();
     } catch (error) {
       toast.error("Failed to update user");
+      console.error(error.response?.data || error.message);
     }
   };
 
   useEffect(() => {
-    fetchUsers();
+    if (token) {
+      fetchUsers();
+    }
   }, [token]);
 
   return (

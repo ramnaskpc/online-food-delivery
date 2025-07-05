@@ -10,25 +10,33 @@ const Profile = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-  const fetchProfile = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const { data } = await axios.get(`${backendUrl}/api/user/profile`, {
-        headers: { token }
-      });
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          toast.error("No token found. Please log in.");
+          navigate('/login');
+          return;
+        }
 
-      if (data.success) {
-        setProfile(data.user);
-      } else {
-        toast.error("Failed to fetch profile");
+        const { data } = await axios.get(`${backendUrl}/api/user/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (data.success) {
+          setProfile(data.user);
+        } else {
+          toast.error("Failed to fetch profile");
+        }
+      } catch (err) {
+        toast.error('Failed to fetch profile');
+        console.error(err);
       }
-    } catch (err) {
-      toast.error('Failed to fetch profile');
-    }
-  };
-  fetchProfile();
-}, []);
-
+    };
+    fetchProfile();
+  }, [navigate]);
 
   if (!profile) return <p>Loading...</p>;
 
@@ -36,7 +44,7 @@ const Profile = () => {
     <div className="profile_page">
       <div className="profile_card">
         <h1>Name: {profile.name}</h1>
-        <p><strong>Email:</strong>{profile.email}</p>
+        <p><strong>Email:</strong> {profile.email}</p>
 
         {profile.address ? (
           <p>
